@@ -45,6 +45,19 @@ def add_twitter_score(entry):
             pass
 
 
+def clean_old_entries():
+    """cleans up entries from database(s) that are older than a day for moon call and ops log"""
+    tables = [str(env + "_moon_call"), str(env + "_twitter_scores")]
+
+    for table in tables:
+        with Db() as db:
+            try:
+                db.cur.execute("delete from " + table + " where ", )
+            except psycopg2.Error as e:
+                print e
+                pass
+
+
 def add_operations_log(log):
     """ adds a coin symbol to the symbols table according to environment, and the symbol it is."""
     with Db() as db:

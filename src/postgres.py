@@ -2,6 +2,8 @@ import os
 import psycopg2
 import psycopg2.extras
 import urlparse
+import helpers
+from datetime import timedelta
 from config import env
 
 
@@ -49,10 +51,13 @@ def clean_old_entries():
     """cleans up entries from database(s) that are older than a day for moon call and ops log"""
     tables = [str(env + "_moon_call"), str(env + "_twitter_scores")]
 
+    day_ago = helpers.get_time_now() - timedelta(hours=24)
+
     for table in tables:
         with Db() as db:
             try:
-                db.cur.execute("delete from " + table + " where ", )
+                db.cur.execute("delete from " + table +
+                               " where main_end <= " + day_ago, )
             except psycopg2.Error as e:
                 print e
                 pass

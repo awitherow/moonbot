@@ -90,7 +90,7 @@ def moon_call():
 
     operations_log["main_end"] = helpers.get_time_now(stringify=True)
     postgres.add_operations_log(operations_log)
-    postgres.clean_old_entries
+    postgres.clean_old_entries()
 
 
 moon_call()

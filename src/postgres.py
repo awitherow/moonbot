@@ -51,13 +51,19 @@ def clean_old_entries():
     """cleans up entries from database(s) that are older than a day for moon call and ops log"""
     tables = [str(env + "_moon_call"), str(env + "_twitter_scores")]
 
-    day_ago = helpers.get_time_now() - timedelta(hours=24)
+    when = helpers.get_time_now()
 
     for table in tables:
+        if "moon_call" in table:
+            when = when - timedelta(weeks=1)
+
+        if "twitter_scores" in table:
+            when = when - timedelta(hours=24)
+
         with Db() as db:
             try:
                 db.cur.execute("delete from " + table +
-                               " where main_end <= " + day_ago, )
+                               " where main_end <= " + when)
             except psycopg2.Error as e:
                 print e
                 pass

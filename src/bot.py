@@ -2,10 +2,10 @@
 """ the bot package servers as a telegram adapter """
 import telegram
 import emoji
-from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, btc_tip_jar, rain_tip_jar
+from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, asian_guys, btc_tip_jar
 TELLIE = telegram.Bot(token=telegram_token)
 
-PROD_CHANNELS = [telegram_chat_prod, kirby_bot_channel]
+PROD_CHANNELS = [telegram_chat_prod, kirby_bot_channel, asian_guys]
 TEST_CHANNELS = [telegram_chat_dev]
 
 
@@ -28,13 +28,10 @@ def build_info_template():
 
 def build_ad_template():
     rocket_symbol = emoji.emojize(":rocket:")
-    crystal_ball_symbol = emoji.emojize(":crystal_ball:")
 
     message_text = emoji.emojize(rocket_symbol + rocket_symbol + rocket_symbol +
                                  " Accelerate Development With Donations " + rocket_symbol + rocket_symbol + rocket_symbol + " \n")
     message_text += "BTC: `" + btc_tip_jar + "`\n"
-    message_text += "RAIN: `" + rain_tip_jar + "`\n"
-    message_text += "Bitconnect: bitconnect.co/?ref=5h3llgh05t\n"
 
     return message_text
 

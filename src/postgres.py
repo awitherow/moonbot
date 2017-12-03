@@ -51,7 +51,7 @@ def add_operations_log(log):
         table = str(env + "_moon_call")
         try:
             db.cur.execute("insert into " + table +
-                           "(main_start, main_end, twitter_search_start, twitter_search_end, send_message_start, send_message_end, daily_coins) values (%s, %s, %s, %s, %s, %s, %s, %s)",
+                           "(main_start, main_end, twitter_search_start, twitter_search_end, send_message_start, send_message_end, daily_coins) values (%s, %s, %s, %s, %s, %s, %s)",
                            (log["main_start"], log["main_end"], log["twitter_search_start"], log["twitter_search_end"], log["send_message_start"], log["send_message_end"], log["daily_coins"]))
         except psycopg2.Error as e:
             print e

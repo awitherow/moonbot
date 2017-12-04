@@ -10,7 +10,6 @@ TEST_CHANNELS = [telegram_chat_dev]
 
 
 def build_info_template():
-    pray_symbol = emoji.emojize(":folded_hands:")
     moon_symbol = emoji.emojize(":full_moon:")
     crystal_ball_symbol = emoji.emojize(":crystal_ball:")
 
@@ -68,7 +67,10 @@ def send_message(text):
 
 
 def build_rating_template(scores, title):
-    """ build_rating_template builds and returns a text message for twitter based coin score ratings """
+    """
+        build_rating_template builds
+        and returns a text message for twitter based coin score ratings
+    """
 
     message = emoji.emojize("*:bird:" + title + ":bird: *\n")
     for market in scores:

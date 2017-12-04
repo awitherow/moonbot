@@ -1,15 +1,12 @@
 #!/usr/bin/python
 """ the archivist deals with archived data in the databases """
 import os
-from datetime import datetime, date
 from operator import itemgetter
+from datetime import timedelta
 
 import postgres
-from rex import Rex
-from helpers import get_time_now, find
-from dateutil.parser import parse as parse_date
-from datetime import timedelta, datetime
-from config import env
+from helpers import get_time_now
+
 CWD = os.getcwd()
 
 

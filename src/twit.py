@@ -14,7 +14,8 @@ class API():
         self.client = twitter.Api(consumer_key=twitter_consumer_key,
                                   consumer_secret=twitter_consumer_secret,
                                   access_token_key=twitter_access_token,
-                                  access_token_secret=twitter_access_secret)
+                                  access_token_secret=twitter_access_secret
+                                  )
 
     # setup
     def __enter__(self):

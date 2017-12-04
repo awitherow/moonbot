@@ -8,9 +8,9 @@ from constants import VIP_PLAYERS, SHILLS
 
 def judge(tweets, stale_break):
     """
-    judge provides a score judging an array of tweets based on
-    - user credibility
-    - tweet quality, hype     
+        judge provides a score judging an array of tweets based on
+        - user credibility
+        - tweet quality, hype     
     """
 
     scores = []

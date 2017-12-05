@@ -13,7 +13,9 @@ telegram_token = environ["bot_api_token"]
 telegram_chat_prod = environ["telegram_chat_prod"]
 telegram_chat_dev = environ["telegram_chat_dev"]
 kirby_bot_channel = environ["kirby_bot_channel"]
-asian_guys = environ["asian_guys"]
+cryptomumma = environ["cryptomumma"]
+kangeroo = environ["kangeroo"]
+
 
 # bittrex api
 rex_api_key = environ["bittrex_api_key"]

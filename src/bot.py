@@ -2,10 +2,11 @@
 """ the bot package servers as a telegram adapter """
 import telegram
 import emoji
-from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, asian_guys, btc_tip_jar
+from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, cryptomumma, kangeroo, btc_tip_jar
+
 TELLIE = telegram.Bot(token=telegram_token)
 
-PROD_CHANNELS = [telegram_chat_prod, kirby_bot_channel, asian_guys]
+PROD_CHANNELS = [telegram_chat_prod, kirby_bot_channel, cryptomumma, kangeroo]
 TEST_CHANNELS = [telegram_chat_dev]
 
 

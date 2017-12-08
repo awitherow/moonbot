@@ -57,7 +57,7 @@ def clean_old_entries():
         col = ""
 
         if "moon_call" in table:
-            col = "main end"
+            col = "main_end"
             when = when - timedelta(weeks=1)
 
         if "twitter_scores" in table:
@@ -67,7 +67,7 @@ def clean_old_entries():
         with Db() as db:
             try:
                 db.cur.execute("delete from " + table +
-                               " where " + col + " <= " + when.strftime('%s'))
+                               " where to_timestamp(" + col + ") <= " + str(when))
             except psycopg2.Error as e:
                 print e
                 pass

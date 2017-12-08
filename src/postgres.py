@@ -2,6 +2,8 @@ import os
 import psycopg2
 import psycopg2.extras
 import urlparse
+import helpers
+from datetime import timedelta
 from config import env
 
 
@@ -43,6 +45,28 @@ def add_twitter_score(entry):
         except psycopg2.Error as e:
             print e
             pass
+
+
+def clean_old_entries():
+    """cleans up entries from database(s) that are older than a day for moon call and ops log"""
+    tables = [str(env + "_moon_call"), str(env + "_twitter_scores")]
+
+    when = helpers.get_time_now()
+
+    for table in tables:
+        if "moon_call" in table:
+            when = when - timedelta(weeks=1)
+
+        if "twitter_scores" in table:
+            when = when - timedelta(hours=24)
+
+        with Db() as db:
+            try:
+                db.cur.execute("delete from " + table +
+                               " where main_end <= " + when)
+            except psycopg2.Error as e:
+                print e
+                pass
 
 
 def add_operations_log(log):

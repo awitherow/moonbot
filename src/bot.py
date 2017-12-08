@@ -2,16 +2,15 @@
 """ the bot package servers as a telegram adapter """
 import telegram
 import emoji
-from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, cryptomumma, kangeroo, btc_tip_jar
+from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, cryptomumma, btc_tip_jar
 
 TELLIE = telegram.Bot(token=telegram_token)
 
-PROD_CHANNELS = [telegram_chat_prod, kirby_bot_channel, cryptomumma, kangeroo]
+PROD_CHANNELS = [telegram_chat_prod, kirby_bot_channel, cryptomumma]
 TEST_CHANNELS = [telegram_chat_dev]
 
 
 def build_info_template():
-    pray_symbol = emoji.emojize(":folded_hands:")
     moon_symbol = emoji.emojize(":full_moon:")
     crystal_ball_symbol = emoji.emojize(":crystal_ball:")
 
@@ -39,11 +38,11 @@ def build_ad_template():
 
 def generate_and_post_message(hourly, daily):
     """
-    generates and posts a message using the build template and send message functions
-    accepts hourly, daily scores
-    - scores currently are expected to be of shape [{ symbol: string, score: int }]
-    - scores will evolve to coins array => [{ symbol: string, scores: { medium: int }}]
-    -- medium being "twitter", "reddit", "google", etc.
+        generates and posts a message using the build template and send message functions
+        accepts hourly, daily scores
+        - scores currently are expected to be of shape [{ symbol: string, score: int }]
+        - scores will evolve to coins array => [{ symbol: string, scores: { medium: int }}]
+        -- medium being "twitter", "reddit", "google", etc.
     """
 
     message_text = build_rating_template(hourly, "Hourly Twitter Hype") + "\n"

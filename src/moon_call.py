@@ -60,41 +60,27 @@ def moon_call():
     print("[JOB] Preparing message templates...")
 
     daily_top_scores = archivist.get_score_history(tf="day")
-    weekly_top_scores = archivist.get_score_history(tf="week")
 
-    # track the daily and weekly coins for each call
+    # track the daily coins for each call
     operations_log["daily_coins"] = []
-    operations_log["weekly_coins"] = []
 
     for coin in daily_top_scores:
         operations_log["daily_coins"].append(coin["symbol"])
 
-    for coin in weekly_top_scores:
-        operations_log["weekly_coins"].append(coin["symbol"])
-
-    # ensure that we are not unnecessarily sending daily/weekly block
+    # ensure that we are not unnecessarily sending daily/ block
     last_daily = archivist.get_last_scores("day")
-    last_weekly = archivist.get_last_scores("week")
 
     day_matches_last_moon_call = False
     if last_daily is not None:
         day_matches_last_moon_call = last_daily == operations_log["daily_coins"]
 
-    week_matches_last_moon_call = False
-    if last_weekly != None:
-        week_matches_last_moon_call = last_weekly == operations_log["weekly_coins"]
-
     if day_matches_last_moon_call:
         daily_top_scores = []
-
-    if week_matches_last_moon_call:
-        weekly_top_scores = []
 
     # prepare message for telegram
     operations_log["send_message_start"] = helpers.get_time_now(stringify=True)
 
-    bot.generate_and_post_message(
-        hourly_top_scores, daily_top_scores, weekly_top_scores)
+    bot.generate_and_post_message(hourly_top_scores, daily_top_scores)
 
     operations_log["send_message_end"] = helpers.get_time_now(stringify=True)
 
@@ -104,6 +90,7 @@ def moon_call():
 
     operations_log["main_end"] = helpers.get_time_now(stringify=True)
     postgres.add_operations_log(operations_log)
+    postgres.clean_old_entries()
 
 
 moon_call()

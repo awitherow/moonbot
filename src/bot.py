@@ -2,10 +2,11 @@
 """ the bot package servers as a telegram adapter """
 import telegram
 import emoji
-from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, btc_tip_jar, rain_tip_jar
+from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, cryptomumma, btc_tip_jar
+
 TELLIE = telegram.Bot(token=telegram_token)
 
-PROD_CHANNELS = [telegram_chat_prod, kirby_bot_channel]
+PROD_CHANNELS = [telegram_chat_prod, kirby_bot_channel, cryptomumma]
 TEST_CHANNELS = [telegram_chat_dev]
 
 
@@ -38,21 +39,20 @@ def build_ad_template():
                          " Accelerate Development With Donations " +
                          rocket_symbol + rocket_symbol + rocket_symbol +
                          " \n")
-
+  
     text += "BTC: `" + btc_tip_jar + "`\n"
-    text += "RAIN: `" + rain_tip_jar + "`\n"
     text += "Bitconnect: bitconnect.co/?ref=5h3llgh05t\n"
 
     return text
 
 
-def generate_and_post_message(hourly, daily, weekly):
+def generate_and_post_message(hourly, daily):
     """
-    generates and posts a message using the build template and send message functions
-    accepts hourly, daily, weekly scores
-    - scores currently are expected to be of shape [{ symbol: string, score: int }]
-    - scores will evolve to coins array => [{ symbol: string, scores: { medium: int }}]
-    -- medium being "twitter", "reddit", "google", etc.
+        generates and posts a message using the build template and send message functions
+        accepts hourly, daily scores
+        - scores currently are expected to be of shape [{ symbol: string, score: int }]
+        - scores will evolve to coins array => [{ symbol: string, scores: { medium: int }}]
+        -- medium being "twitter", "reddit", "google", etc.
     """
 
     text = build_rating_template(hourly, "Hourly Twitter Hype") + "\n"
@@ -60,10 +60,6 @@ def generate_and_post_message(hourly, daily, weekly):
     if daily:
         daily_text = build_rating_template(daily, "Daily Twitter Hype")
         text += daily_text + "\n"
-
-    if weekly:
-        weekly_text = build_rating_template(weekly, "Weekly Twitter Hype")
-        text += weekly_text + "\n"
 
     send_message(text=text)
 

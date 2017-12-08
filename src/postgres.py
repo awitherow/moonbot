@@ -2,6 +2,8 @@ import os
 import psycopg2
 import psycopg2.extras
 import urlparse
+import helpers
+from datetime import timedelta
 from config import env
 
 
@@ -45,14 +47,36 @@ def add_twitter_score(entry):
             pass
 
 
+def clean_old_entries():
+    """cleans up entries from database(s) that are older than a day for moon call and ops log"""
+    tables = [str(env + "_moon_call"), str(env + "_twitter_scores")]
+
+    when = helpers.get_time_now()
+
+    for table in tables:
+        if "moon_call" in table:
+            when = when - timedelta(weeks=1)
+
+        if "twitter_scores" in table:
+            when = when - timedelta(hours=24)
+
+        with Db() as db:
+            try:
+                db.cur.execute("delete from " + table +
+                               " where main_end <= " + when.strftime('%s'))
+            except psycopg2.Error as e:
+                print e
+                pass
+
+
 def add_operations_log(log):
     """ adds a coin symbol to the symbols table according to environment, and the symbol it is."""
     with Db() as db:
         table = str(env + "_moon_call")
         try:
             db.cur.execute("insert into " + table +
-                           "(main_start, main_end, twitter_search_start, twitter_search_end, send_message_start, send_message_end, daily_coins, weekly_coins) values (%s, %s, %s, %s, %s, %s, %s, %s)",
-                           (log["main_start"], log["main_end"], log["twitter_search_start"], log["twitter_search_end"], log["send_message_start"], log["send_message_end"], log["daily_coins"], log["weekly_coins"]))
+                           "(main_start, main_end, twitter_search_start, twitter_search_end, send_message_start, send_message_end, daily_coins) values (%s, %s, %s, %s, %s, %s, %s)",
+                           (log["main_start"], log["main_end"], log["twitter_search_start"], log["twitter_search_end"], log["send_message_start"], log["send_message_end"], log["daily_coins"]))
         except psycopg2.Error as e:
             print e
             pass

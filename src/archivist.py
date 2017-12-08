@@ -1,7 +1,6 @@
 #!/usr/bin/python
 """ the archivist deals with archived data in the databases """
 import os
-from datetime import datetime, date
 from operator import itemgetter
 
 import postgres
@@ -10,17 +9,17 @@ from helpers import get_time_now, find
 from dateutil.parser import parse as parse_date
 from datetime import timedelta, datetime
 from config import env
+from helpers import get_time_now
+from datetime import timedelta
 CWD = os.getcwd()
 
 
 def get_cutoff(x):
     now = get_time_now(naive=False)
     day_delta = timedelta(hours=24)
-    week_delta = timedelta(hours=168)
 
     return {
         "day": now - day_delta,
-        "week": now - week_delta
     }[x]
 
 
@@ -89,8 +88,5 @@ def get_last_scores(tf):
     if last_op is not None:
         if tf == "day":
             return last_op["daily_coins"]
-
-        if tf == "week":
-            return last_op["weekly_coins"]
 
     return []

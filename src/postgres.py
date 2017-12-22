@@ -67,7 +67,7 @@ def clean_old_entries():
         with Db() as db:
             try:
                 db.cur.execute("delete from " + table +
-                               " where to_timestamp(" + col + ") <= " + str(when))
+                               " where to_timestamp(" + col + ") <= " + str(when.strftime('%s')))
             except psycopg2.Error as e:
                 print e
                 pass

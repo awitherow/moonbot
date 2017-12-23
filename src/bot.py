@@ -20,28 +20,31 @@ def build_info_template():
     moon_symbol = emoji.emojize(":full_moon:")
     crystal_ball_symbol = emoji.emojize(":crystal_ball:")
 
-    text = moon_symbol + " Moon Room Resources " + moon_symbol + "\n"
-    text += "- *Free Trading Guide* -> bit.ly/2vFCM5W \n"
-    text += "- Roadmap -> bit.ly/2wOPi7Z \n"
-    text += "- Website -> bit.ly/2wmfMLz\n"
-    text += "- Report bugs! -> goo.gl/forms/CPOCGE86TwDrf1sr1\n"
-    text += "- Request features! -> goo.gl/forms/bdHcPk5TsRH5roZL2\n\n"
-    text += crystal_ball_symbol + \
-        " Feedback, need a programmer or anything else? Write @azurikai at any time. " + \
+    message_text = moon_symbol + " Moon Room Resources " + moon_symbol + "\n"
+    message_text += "- *FREE* Trading Guide -> bit.ly/2vFCM5W \n"
+    message_text += "- Roadmap -> bit.ly/2wOPi7Z \n"
+    message_text += "- Website -> bit.ly/2wmfMLz\n"
+    message_text += "- Report bugs! -> goo.gl/forms/CPOCGE86TwDrf1sr1\n"
+    message_text += "- Request features! -> goo.gl/forms/bdHcPk5TsRH5roZL2\n\n"
+    message_text += crystal_ball_symbol + \
+        " Write @azurikai at any time. " + \
         crystal_ball_symbol + "\n"
     return text
 
 
 def build_ad_template():
     rocket_symbol = emoji.emojize(":rocket:")
+    chart_symbol = emoji.emojize(":chart_increasing:")
+    lightning_symbol = emoji.emojize(":cloud_with_lightning:")
 
-    text = emoji.emojize(rocket_symbol + rocket_symbol + rocket_symbol +
-                         " Accelerate Development With Donations " +
-                         rocket_symbol + rocket_symbol + rocket_symbol +
-                         " \n")
-  
+    text = emoji.emojize(chart_symbol + " *STABLE INVESTMENTS* \n")
+    text += emoji.emojize(" - " + lightning_symbol +
+                          " [$BUZZ](http://buzzcoin.info)! -> Innovation in Energy \n\n")
+
+    text += emoji.emojize(rocket_symbol +
+                          " *SUPPORT DEVELOPMENT WITH:* \n")
+
     text += "BTC: `" + btc_tip_jar + "`\n"
-    text += "Bitconnect: bitconnect.co/?ref=5h3llgh05t\n"
 
     return text
 

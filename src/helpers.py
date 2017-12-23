@@ -26,6 +26,7 @@ def get_time_now(stringify=False, naive=True):
     now = datetime.utcnow()
     if naive:
         now = now.replace(tzinfo=pytz.UTC)
+
     if stringify:
         return now.strftime('%s')
 

@@ -109,3 +109,34 @@ def get_moon_call_operations():
             print e
             pass
         return db.cur.fetchone()
+
+
+def get_coin_info(symbol):
+    """ gets the information for a specified coin"""
+    with Db() as db:
+        table = str(env + "_coin_info")
+        try:
+            db.cur.execute("SELECT * from " + table +
+                           " WHERE symbol like '" + symbol + "'")
+        except psycopg2.Error as e:
+            print e
+            pass
+
+        data = db.cur.fetchone()
+        if not data:
+            return None
+
+        return data
+
+
+def add_coin_info(entry):
+    """ adds information for a new coin"""
+    with Db() as db:
+        table = str(env + "_coin_info")
+        try:
+            db.cur.execute("insert into " + table +
+                           "(symbol, name) values (%s, %s)",
+                           (entry["symbol"], entry["name"]))
+        except psycopg2.Error as e:
+            print e
+            pass

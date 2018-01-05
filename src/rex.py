@@ -7,6 +7,7 @@ from operator import itemgetter
 from helpers import find
 from config import env
 from postgres import get_coin_info, add_coin_info
+from bot import send_new_coin_notification
 Rex = bittrex.Bittrex(api_key="", api_secret="")
 
 
@@ -55,8 +56,10 @@ def get_market_summaries():
             usdt_summaries.append(entry)
 
         infos = get_coin_info(coin)
+
         if not infos:
             add_coin_info(entry)
+            send_new_coin_notification(coin)
 
     summaries = btc_summaries[:get_cream(btc_summaries)] + eth_summaries[:get_cream(
         eth_summaries)] + usdt_summaries[:get_cream(usdt_summaries)]

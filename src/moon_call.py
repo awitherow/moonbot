@@ -39,8 +39,6 @@ def moon_call():
 
         coin_symbol = "$" + summary["symbol"]
 
-        # TODO: check to see if coin exists in coin-info db
-
         # search twitter
         tweets = twit.search(coin_symbol)
         score = logician.judge(tweets, stale_break=avg_res + 3200)

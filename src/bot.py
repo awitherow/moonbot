@@ -61,6 +61,17 @@ def generate_and_post_message(hourly, daily):
     send_message(text=message_text)
 
 
+def send_new_coin_notification(symbol):
+    """ lets developers know there is a new coin that needs to get some infos """
+
+    text = "New coin " + symbol + " needs infos!"
+
+    channels = TEST_CHANNELS
+    for channel in channels:
+        TELLIE.send_message(chat_id=channel, text=text,
+                            parse_mode="Markdown", disable_web_page_preview=True)
+
+
 def send_message(text):
     """ send_message sends a text message to the environment variable chat id, in markdown """
 

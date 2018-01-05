@@ -22,6 +22,7 @@ def moon_call():
     print("[JOB] Starting moon_call at " + operations_log["main_start"])
 
     summaries = rex.get_market_summaries()
+    # TODO: set up separated twitter scores, reddit scores. overlap scores?
     scores = []
 
     print("[JOB] Searching Twitter for BTRX symbol high volume list...")
@@ -38,9 +39,13 @@ def moon_call():
 
         coin_symbol = "$" + summary["symbol"]
 
+        # TODO: check to see if coin exists in coin-info db
+
         # search twitter
         tweets = twit.search(coin_symbol)
         score = logician.judge(tweets, stale_break=avg_res + 3200)
+
+        # TODO: search reddit
 
         # if score sucks, go to next symbol
         if not score:

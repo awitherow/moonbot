@@ -2,12 +2,22 @@
 """ the bot package servers as a telegram adapter """
 import telegram
 import emoji
+import math
+from datetime import datetime
 from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, cryptomumma, btc_tip_jar
 
 TELLIE = telegram.Bot(token=telegram_token)
 
-PROD_CHANNELS = [telegram_chat_prod, kirby_bot_channel, cryptomumma]
+FREE_PROD_CHANNELS = [telegram_chat_prod, cryptomumma]
+PAID_PROD_CHANNELS = [kirby_bot_channel]
 TEST_CHANNELS = [telegram_chat_dev]
+
+
+def delivery_boy(text, channels):
+    """ sends a message to an array of channels"""
+    for channel in channels:
+        TELLIE.send_message(chat_id=channel, text=text,
+                            parse_mode="Markdown", disable_web_page_preview=True)
 
 
 def build_info_template():
@@ -65,24 +75,22 @@ def send_new_coin_notification(symbol):
     """ lets developers know there is a new coin that needs to get some infos """
 
     text = "New coin " + symbol + " needs infos!"
-
-    channels = TEST_CHANNELS
-    for channel in channels:
-        TELLIE.send_message(chat_id=channel, text=text,
-                            parse_mode="Markdown", disable_web_page_preview=True)
+    delivery_boy(text, TEST_CHANNELS)
 
 
-def send_message(text):
+def send_message(text, category="data"):
     """ send_message sends a text message to the environment variable chat id, in markdown """
 
-    channels = PROD_CHANNELS
-
     if env == "test":
-        channels = TEST_CHANNELS
+        delivery_boy(text, TEST_CHANNELS)
+        return
 
-    for channel in channels:
-        TELLIE.send_message(chat_id=channel, text=text,
-                            parse_mode="Markdown", disable_web_page_preview=True)
+    now = datetime
+    if (env == "prod") and (math.fmod(now.hour, 6) == 0):
+        delivery_boy(text, FREE_PROD_CHANNELS)
+
+    if (env == "prod") and (category != "ad"):
+        delivery_boy(text, PAID_PROD_CHANNELS)
 
 
 def build_rating_template(scores, title):

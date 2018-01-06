@@ -4,12 +4,12 @@ import telegram
 import emoji
 import math
 from datetime import datetime
-from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, cryptomumma, btc_tip_jar
+from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, cryptomumma, btc_tip_jar, telegram_chat_prod_vip
 
 TELLIE = telegram.Bot(token=telegram_token)
 
 FREE_PROD_CHANNELS = [telegram_chat_prod, cryptomumma]
-PAID_PROD_CHANNELS = [kirby_bot_channel]
+PAID_PROD_CHANNELS = [kirby_bot_channel, telegram_chat_prod_vip]
 TEST_CHANNELS = [telegram_chat_dev]
 
 

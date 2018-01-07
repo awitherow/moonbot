@@ -65,7 +65,7 @@ def generate_and_post_message(hourly, daily):
         generates and posts a message using the build template and send message functions
         accepts hourly, daily scores
         - scores currently are expected to be of shape [{ symbol: string, score: int }]
-        - scores will evolve to coins array => [{ symbol: string, scores: { medium: int }}]
+        - scores will evolve to coins array => [{ symbol: string, scores: { medium: string }}]
         -- medium being "twitter", "reddit", "google", etc.
     """
 

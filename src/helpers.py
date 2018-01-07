@@ -13,7 +13,7 @@ def find(lst, key, value):
             return dic
 
 
-def get_time_now(stringify=False, naive=True):
+def time_now(stringify=False, naive=True):
     """ returns a proper default UTC timezone now time. """
 
     now = datetime.utcnow()

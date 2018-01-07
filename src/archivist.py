@@ -4,13 +4,13 @@ import os
 from operator import itemgetter
 
 import postgres
-from helpers import get_time_now
+from helpers import time_now
 from datetime import timedelta
 CWD = os.getcwd()
 
 
 def get_cutoff(x):
-    now = get_time_now(naive=False)
+    now = time_now(naive=False)
     day_delta = timedelta(hours=24)
 
     return {

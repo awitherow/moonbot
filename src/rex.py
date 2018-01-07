@@ -17,7 +17,6 @@ blacklist = ["GLD", "1ST", "2GIVE", "EMC2"]
 
 def get_cream(list_of_things):
     """ get_cream gets the top 40% of the pack, no dregs please. """
-
     return int(len(list_of_things) * 0.2)
 
 

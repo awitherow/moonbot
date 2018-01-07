@@ -51,7 +51,7 @@ def clean_old_entries():
     """cleans up entries from database(s) that are older than a day for moon call and ops log"""
     tables = [str(env + "_moon_call"), str(env + "_twitter_scores")]
 
-    when = helpers.get_time_now()
+    when = helpers.time_now()
 
     for table in tables:
         col = ""

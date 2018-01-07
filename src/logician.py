@@ -1,7 +1,7 @@
 #!/usr/bin/python
 """ the logician package makes all the calls, based on human logic. """
 from datetime import timedelta
-from helpers import get_time_now
+from helpers import time_now
 from dateutil.parser import parse as parse_date
 from constants import VIP_PLAYERS, SHILLS
 
@@ -16,7 +16,7 @@ def judge(tweets, stale_break):
     scores = []
     for tweet in tweets:
         # ignore stale tweets.
-        if parse_date(tweet.created_at) < get_time_now() - timedelta(seconds=stale_break):
+        if parse_date(tweet.created_at) < time_now() - timedelta(seconds=stale_break):
             break
 
         score = 0

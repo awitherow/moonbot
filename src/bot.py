@@ -30,9 +30,6 @@ def build_info_template():
     text += "- Website -> bit.ly/2wmfMLz\n"
     text += "- Report bugs! -> goo.gl/forms/CPOCGE86TwDrf1sr1\n"
     text += "- Request features! -> goo.gl/forms/bdHcPk5TsRH5roZL2\n\n"
-    text += crystal_ball_symbol + \
-        " Write @azurikai at any time. " + \
-        crystal_ball_symbol
 
     return text
 
@@ -57,7 +54,7 @@ def build_ad_template():
     text += "You are currently using the *FREE* version of MOONBOT.\n"
     text += "This version posts only Twitter scoring every 6 hours.\n"
     text += "Want access to hourly posting and future roadmap items? \n"
-    text += "[Test the PAID version FREE for 48 hours.]()\n"
+    text += "DM @azurikai for info on the VIP Moon Room.\n"
     text += confetti_symbol + confetti_symbol + confetti_symbol + confetti_symbol
 
     return text

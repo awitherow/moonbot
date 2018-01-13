@@ -96,10 +96,12 @@ def send_message(text, category="data"):
         return
 
     now = datetime
-    if (env == "prod") and (math.fmod(now.hour, 6) == 0):
+    hour = now.hour
+
+    if env == "prod" and hour % 6 == 0:
         delivery_boy(text, FREE_PROD_CHANNELS)
 
-    if (env == "prod") and (category != "ad"):
+    if env == "prod" and category != "ad":
         delivery_boy(text, PAID_PROD_CHANNELS)
 
 

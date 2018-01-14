@@ -3,12 +3,13 @@
 import telegram
 import emoji
 import math
+import time
 from datetime import datetime
-from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, cryptomumma, telegram_chat_prod_vip
+from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, telegram_chat_prod_vip
 
 TELLIE = telegram.Bot(token=telegram_token)
 
-FREE_PROD_CHANNELS = [telegram_chat_prod, cryptomumma]
+FREE_PROD_CHANNELS = [telegram_chat_prod]
 PAID_PROD_CHANNELS = [kirby_bot_channel, telegram_chat_prod_vip]
 TEST_CHANNELS = [telegram_chat_dev]
 
@@ -41,19 +42,18 @@ def build_ad_template():
     rocket_symbol = emoji.emojize(":rocket:")
     chart_symbol = emoji.emojize(":chart_increasing:")
     lightning_symbol = emoji.emojize(":cloud_with_lightning:")
-    confetti_symbol = emoji.emojize(":confetti_ball:")
 
     text = emoji.emojize(chart_symbol + " *STABLE INVESTMENTS* \n")
     text += emoji.emojize(" - " + lightning_symbol +
                           " [$BUZZ](http://buzzcoin.info)! -> Innovations in Smart Energy Contracts, Save the Bees Project!\n\n")
 
-    text += confetti_symbol + confetti_symbol + \
-        confetti_symbol + confetti_symbol + "\n"
+    text += rocket_symbol + rocket_symbol + \
+        rocket_symbol + rocket_symbol + "\n"
     text += "You are currently using the *FREE* version of MOONBOT.\n"
-    text += "This version posts only Twitter scoring every 6 hours.\n"
+    text += "This version posts only Twitter scoring every 4 hours.\n"
     text += "Want access to hourly posting and future roadmap items? \n\n"
-    text += "[Sign up TODAY for VIP Access!](http://bit.ly/2D4y9XC)\n"
-    text += confetti_symbol + confetti_symbol + confetti_symbol + confetti_symbol
+    text += "[Sign up TODAY for VIP Access!](http://bit.ly/2D4y9XC)\n\n"
+    text += rocket_symbol + rocket_symbol + rocket_symbol + rocket_symbol
 
     return text
 
@@ -90,14 +90,21 @@ def send_message(text, category="data"):
         delivery_boy(text, TEST_CHANNELS)
         return
 
-    now = datetime
-    hour = now.hour
+    now = time.localtime(time.time())
 
-    if env == "prod" and int(hour) % 6 == 0:
-        delivery_boy(text, FREE_PROD_CHANNELS)
+    if env == "prod":
+        if category == "data":
+            if int(now.tm_hour) % 4 == 0:
+                delivery_boy(text, FREE_PROD_CHANNELS)
 
-    if env == "prod" and category != "ad":
-        delivery_boy(text, PAID_PROD_CHANNELS)
+            delivery_boy(text, PAID_PROD_CHANNELS)
+
+        if category == "ad":
+            delivery_boy(text, FREE_PROD_CHANNELS)
+
+        if category == "info":
+            delivery_boy(text, FREE_PROD_CHANNELS)
+            delivery_boy(text, PAID_PROD_CHANNELS)
 
 
 def build_rating_template(scores, title):

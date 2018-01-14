@@ -13,7 +13,6 @@ telegram_token = environ["bot_api_token"]
 telegram_chat_prod = environ["telegram_chat_prod"]
 telegram_chat_dev = environ["telegram_chat_dev"]
 kirby_bot_channel = environ["kirby_bot_channel"]
-cryptomumma = environ["cryptomumma"]
 telegram_chat_prod_vip = environ["telegram_chat_prod_vip"]
 
 # bittrex api

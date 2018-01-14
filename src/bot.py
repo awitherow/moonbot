@@ -4,7 +4,7 @@ import telegram
 import emoji
 import math
 from datetime import datetime
-from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, cryptomumma, btc_tip_jar, telegram_chat_prod_vip
+from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, cryptomumma, telegram_chat_prod_vip
 
 TELLIE = telegram.Bot(token=telegram_token)
 
@@ -45,19 +45,14 @@ def build_ad_template():
 
     text = emoji.emojize(chart_symbol + " *STABLE INVESTMENTS* \n")
     text += emoji.emojize(" - " + lightning_symbol +
-                          " [$BUZZ](http://buzzcoin.info)! -> Innovation in Energy \n\n")
-
-    text += emoji.emojize(rocket_symbol +
-                          " *SUPPORT DEVELOPMENT WITH:* \n")
-
-    text += "BTC: `" + btc_tip_jar + "`\n\n"
+                          " [$BUZZ](http://buzzcoin.info)! -> Innovations in Smart Energy Contracts, Save the Bees Project!\n\n")
 
     text += confetti_symbol + confetti_symbol + \
         confetti_symbol + confetti_symbol + "\n"
     text += "You are currently using the *FREE* version of MOONBOT.\n"
     text += "This version posts only Twitter scoring every 6 hours.\n"
-    text += "Want access to hourly posting and future roadmap items? \n"
-    text += "[Test the PAID version FREE for 48 hours.]()\n"
+    text += "Want access to hourly posting and future roadmap items? \n\n"
+    text += "[Sign up TODAY for VIP Access!](http://bit.ly/2D4y9XC)\n"
     text += confetti_symbol + confetti_symbol + confetti_symbol + confetti_symbol
 
     return text

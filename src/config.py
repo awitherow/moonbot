@@ -26,8 +26,6 @@ twitter_consumer_secret = environ["twitter_consumer_secret"]
 twitter_access_token = environ["twitter_access_token"]
 twitter_access_secret = environ["twitter_access_secret"]
 
-# tips
-btc_tip_jar = environ["btc_tip_jar"]
 
 # environment
 env = environ["ENV"]

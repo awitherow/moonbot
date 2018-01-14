@@ -98,7 +98,7 @@ def send_message(text, category="data"):
     now = datetime
     hour = now.hour
 
-    if env == "prod" and hour % 6 == 0:
+    if env == "prod" and int(hour) % 6 == 0:
         delivery_boy(text, FREE_PROD_CHANNELS)
 
     if env == "prod" and category != "ad":

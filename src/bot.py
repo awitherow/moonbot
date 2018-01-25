@@ -5,12 +5,13 @@ import emoji
 import math
 import time
 from datetime import datetime
-from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, telegram_chat_prod_vip
+from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, telegram_chat_prod_vip, coin_steigern_channel
 
 TELLIE = telegram.Bot(token=telegram_token)
 
 FREE_PROD_CHANNELS = [telegram_chat_prod]
-PAID_PROD_CHANNELS = [kirby_bot_channel, telegram_chat_prod_vip]
+PAID_PROD_CHANNELS = [kirby_bot_channel,
+                      telegram_chat_prod_vip, coin_steigern_channel]
 TEST_CHANNELS = [telegram_chat_dev]
 
 

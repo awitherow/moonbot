@@ -50,7 +50,7 @@ def build_ad_template():
     text += rocket_symbol + rocket_symbol + \
         rocket_symbol + rocket_symbol + "\n"
     text += "You are currently using the *FREE* version of MOONBOT.\n"
-    text += "This version posts only Twitter scoring every 4 hours.\n"
+    text += "This version posts only Twitter scoring every 6 hours.\n"
     text += "Want access to hourly posting and future roadmap items? \n\n"
     text += "[Sign up TODAY for VIP Access!](http://bit.ly/2D4y9XC)\n\n"
     text += rocket_symbol + rocket_symbol + rocket_symbol + rocket_symbol
@@ -94,7 +94,7 @@ def send_message(text, category="data"):
 
     if env == "prod":
         if category == "data":
-            if int(now.tm_hour) % 4 == 0:
+            if int(now.tm_hour) % 6 == 0:
                 delivery_boy(text, FREE_PROD_CHANNELS)
 
             delivery_boy(text, PAID_PROD_CHANNELS)

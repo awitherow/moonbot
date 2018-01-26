@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
-ENV=prod python2 ./src/moon_call.py
+export ENV=test
 
-if [ date+%H % 6 == 0]
+python2 ./src/moon_call.py
+
+hour=$(date +%H)
+
+if (( "$hour" % 6 == 0 ))
 then
-    ENV=prod python2 ./src/post_info.py
+    echo "Running post info on the 6th hour."
+    python2 ./src/post_info.py
 fi

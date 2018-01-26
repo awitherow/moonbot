@@ -10,10 +10,16 @@ if "heroku" not in environ:
 
 # telegram bot
 telegram_token = environ["bot_api_token"]
-telegram_chat_prod = environ["telegram_chat_prod"]
+# dev channel for testing
 telegram_chat_dev = environ["telegram_chat_dev"]
+
+# free channels
+telegram_chat_prod = environ["telegram_chat_prod"]
+
+# paid channels
 kirby_bot_channel = environ["kirby_bot_channel"]
 telegram_chat_prod_vip = environ["telegram_chat_prod_vip"]
+channel_vip_coineo = environ["channel_vip_coineo"]
 
 # bittrex api
 rex_api_key = environ["bittrex_api_key"]

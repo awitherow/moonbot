@@ -1,17 +1,25 @@
 #!/usr/bin/python
 """ the bot package servers as a telegram adapter """
+import time
 import telegram
 import emoji
-import math
-import time
-from datetime import datetime
-from config import telegram_token, telegram_chat_prod, telegram_chat_dev, env, kirby_bot_channel, telegram_chat_prod_vip
+import config as cfg
 
-TELLIE = telegram.Bot(token=telegram_token)
+TELLIE = telegram.Bot(token=cfg.telegram_token)
 
-FREE_PROD_CHANNELS = [telegram_chat_prod]
-PAID_PROD_CHANNELS = [kirby_bot_channel, telegram_chat_prod_vip]
-TEST_CHANNELS = [telegram_chat_dev]
+FREE_PROD_CHANNELS = [
+    cfg.telegram_chat_prod
+]
+
+PAID_PROD_CHANNELS = [
+    cfg.kirby_bot_channel,
+    cfg.telegram_chat_prod_vip,
+    cfg.channel_vip_coineo
+]
+
+TEST_CHANNELS = [
+    cfg.telegram_chat_dev
+]
 
 
 def delivery_boy(text, channels):
@@ -86,13 +94,13 @@ def send_new_coin_notification(symbol):
 def send_message(text, category="data"):
     """ send_message sends a text message to the environment variable chat id, in markdown """
 
-    if env == "test":
+    if cfg.env == "test":
         delivery_boy(text, TEST_CHANNELS)
         return
 
     now = time.localtime(time.time())
 
-    if env == "prod":
+    if cfg.env == "prod":
         if category == "data":
             if int(now.tm_hour) % 6 == 0:
                 delivery_boy(text, FREE_PROD_CHANNELS)

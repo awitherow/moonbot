@@ -1,27 +1,26 @@
 #!/usr/bin/python
 """ the archivist deals with archived data in the databases """
-import os
 from operator import itemgetter
+from datetime import timedelta
 
 import postgres
 from helpers import get_time_now
-from datetime import timedelta
-CWD = os.getcwd()
 
 
-def get_cutoff(x):
+def get_cutoff(timeframe):
+    """ creates a cuttoff time based on a timeframe, currentls supports 'days'"""
     now = get_time_now(naive=False)
     day_delta = timedelta(hours=24)
 
     return {
         "day": now - day_delta,
-    }[x]
+    }[timeframe]
 
 
-def get_score_history(tf):
-    """ gets the score history for all coins, returning top 3 for the respective tf """
+def get_score_history(timeframe):
+    """ gets the score history for all coins, returning top 3 for the respective timeframe """
 
-    cutoff = get_cutoff(tf)
+    cutoff = get_cutoff(timeframe)
     history = postgres.get_historical_twitter_scores(cutoff)
     if history is None:
         return []
@@ -66,13 +65,13 @@ def get_moon_call_res_duration():
     return moon_call_duration
 
 
-def get_last_scores(tf):
+def get_last_scores(timeframe):
     """ get_last_scores returns the last scores from the moon call based on the timeframe"""
 
     last_op = postgres.get_moon_call_operations()
 
     if last_op is not None:
-        if tf == "day":
+        if timeframe == "day":
             return last_op["daily_coins"]
 
     return []

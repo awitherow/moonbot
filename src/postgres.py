@@ -129,6 +129,23 @@ def get_coin_info(symbol):
         return data
 
 
+def get_past_tickers():
+    """ gets all past ticker information from coinmarketcap"""
+    with Db() as db:
+        table = str(env + "_cmc_tickers")
+        try:
+            db.cur.execute("SELECT * from " + table)
+        except psycopg2.Error as e:
+            print e
+            pass
+
+        data = db.cur.fetchone()
+        if not data:
+            return None
+
+        return data
+
+
 def add_coin_info(entry):
     """ adds information for a new coin"""
     with Db() as db:

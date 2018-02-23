@@ -6,6 +6,7 @@ from operator import itemgetter
 import coinmarketcap
 import helpers
 import postgres
+import bot
 
 TICKER_GETTER = coinmarketcap.Market()
 
@@ -19,8 +20,11 @@ def store_tickers(new):
         postgres.add_cmc_data(ticker)
 
 
-def get_all_coins():
-    """ get all coin tickers from coinmarketcap """
+def analyze_coin_marketcap_tickers():
+    """
+        analyze and take action upon new tickets compared to old tickers tickers from coinmarketcap
+        1) if there are new coins compared to the old list, sent out notification about new coins to paid channels
+    """
 
     new = TICKER_GETTER.ticker(limit=0)
     past = postgres.get_past_tickers()
@@ -38,8 +42,9 @@ def get_all_coins():
                 if match is None:
                     new_coins.append(match)
 
-            # if len(new_coins):
-                # send message of new coins on CMC
+            if len(new_coins):
+                # 1) builds and sends new coins template
+                bot.build_cmc_new_coins_template(new_coins)
 
             # compare one by one of each in past
             # TODO: second -> if 1) rank has increased by X%, add to list of increased ranking percentage
@@ -57,4 +62,5 @@ def get_all_coins():
 
             # TODO: first -> after all, for each ticker in all_tickers, store to past if updated.
 
+    # once parsed, analyzed and taken action upon, store tickers (deletes old ones, adds new ones)
     store_tickers(new)

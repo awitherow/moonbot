@@ -66,6 +66,22 @@ def build_ad_template():
     return text
 
 
+def build_cmc_new_coins_template(new_coins):
+    moon_symbol = emoji.emojize(":full_moon:")
+    text = moon_symbol + " New CMC Listings! " + moon_symbol + "\n"
+    count = 1
+
+    for coin in new_coins:
+        symbol = coin["symbol"]
+
+        text += count + " " + "$[" + symbol + \
+            "](https://coinmarketcap.com/currencies/" + symbol + ")"
+
+        count += 1
+
+    delivery_boy(text, PAID_PROD_CHANNELS)
+
+
 def generate_and_post_message(hourly, daily):
     """
         generates and posts a message using the build template and send message functions

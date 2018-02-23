@@ -79,6 +79,10 @@ def build_cmc_new_coins_template(new_coins):
 
         count += 1
 
+    if cfg.env == "test":
+        delivery_boy(text, TEST_CHANNELS)
+        return
+
     delivery_boy(text, PAID_PROD_CHANNELS)
 
 

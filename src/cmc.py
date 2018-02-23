@@ -52,7 +52,9 @@ def analyze_coin_marketcap_tickers():
             # - but also in top 100, top 250, etc that are "important"
             # - also what is the limit? do we check all?
             # - perhaps scaling X, 1-10, 10-25, 25-100, 100-250, 250+?
+
             # TODO: third -> using same rules above, check percentages for 2) hourly 3) daily, 4) weekly percentage changes
+
             # TODO: fourth ->: using same rules above, check 5) usd fluctuations.
             # once rank change complete, sent out a message with each of these listed out.
 

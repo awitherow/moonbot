@@ -74,8 +74,8 @@ def build_cmc_new_coins_template(new_coins):
     for coin in new_coins:
         symbol = coin["symbol"]
 
-        text += count + " " + "$[" + symbol + \
-            "](https://coinmarketcap.com/currencies/" + symbol + ")"
+        text += count + ". " + "[" + symbol + \
+            "](coinmarketcap.com/currencies/" + symbol + ")"
 
         count += 1
 

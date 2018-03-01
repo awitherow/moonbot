@@ -30,14 +30,15 @@ def analyze_coin_marketcap_tickers():
     past = postgres.get_past_tickers()
 
     new = sorted(new, key=itemgetter("rank"), reverse=True)
-    past = sorted(past, key=itemgetter("rank"), reverse=True)
 
     if past is not None:
+        past = sorted(past, key=itemgetter("rank"), reverse=True)
+
         if len(past) == len(all):
             new_coins = []
 
             for tick in past:
-                match = helpers.find(new, "id", tick["id"])
+                match = helpers.find(new, "symbol", tick["symbol"])
 
                 if match is None:
                     new_coins.append(match)
@@ -66,3 +67,6 @@ def analyze_coin_marketcap_tickers():
 
     # once parsed, analyzed and taken action upon, store tickers (deletes old ones, adds new ones)
     store_tickers(new)
+
+
+analyze_coin_marketcap_tickers()

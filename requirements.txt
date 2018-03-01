@@ -6,3 +6,5 @@ pytz
 psycopg2
 python-dateutil
 emoji
+coinmarketcap
+requests_cache

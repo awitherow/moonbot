@@ -129,6 +129,51 @@ def get_coin_info(symbol):
         return data
 
 
+def get_past_tickers():
+    """ gets all past ticker information from coinmarketcap"""
+    with Db() as db:
+        table = str(env + "_cmc_tickers")
+        try:
+            db.cur.execute("SELECT * from " + table)
+        except psycopg2.Error as e:
+            print e
+            pass
+
+        data = db.cur.fetchone()
+        if not data:
+            return None
+
+        return data
+
+
+def wipe_cmc_history():
+    """cleans up all coinmarketcap history"""
+
+    with Db() as db:
+        table = str(env + "_cmc_tickers")
+        try:
+            db.cur.execute("delete * from " + table)
+        except psycopg2.Error as e:
+            print e
+            pass
+
+
+def add_cmc_data(ticker):
+    """ adds coinmarketcap ticker (single) to database"""
+
+    with Db() as db:
+        table = str(env + "_cmc_tickers")
+        try:
+            db.cur.execute("insert into " + table +
+                           "(symbol, rank, market_cap_usd, price_usd, price_btc, day_volume_usd, percent_change_hour, percent_change_week, percent_change_day) values (%s, %s, %s, %s, %s, %s,%s, %s, %s)",
+                           [ticker["symbol"], ticker["rank"], ticker["market_cap_usd"], ticker["price_usd"], ticker["price_btc"], ticker["24h_volume_usd"],
+                               ticker["percent_change_1h"], ticker["percent_change_7d"], ticker["percent_change_24h"]]
+                           )
+        except psycopg2.Error as e:
+            print e
+            pass
+
+
 def add_coin_info(entry):
     """ adds information for a new coin"""
     with Db() as db:

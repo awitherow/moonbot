@@ -34,6 +34,8 @@ def get_market_summaries():
     eth_summaries = []
     usdt_summaries = []
 
+    summaries_counted = 0
+
     for summary in reversed(sorted(summaries, key=itemgetter("Volume"))):
         market = summary["MarketName"].split("-")[0]
         coin = summary["MarketName"].split("-")[1]
@@ -55,11 +57,15 @@ def get_market_summaries():
         if market == "USDT":
             usdt_summaries.append(entry)
 
-        infos = get_coin_info(coin)
+        infos = []
+        if env == "test" and summaries_counted < 5:
+            infos = get_coin_info(coin)
 
-        if not infos:
+        if infos:
             add_coin_info(entry)
             send_new_coin_notification(coin)
+
+        summaries_counted += 1
 
     summaries = btc_summaries[:get_cream(btc_summaries)] + eth_summaries[:get_cream(
         eth_summaries)] + usdt_summaries[:get_cream(usdt_summaries)]

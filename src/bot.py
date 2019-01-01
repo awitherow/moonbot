@@ -7,19 +7,11 @@ import config as cfg
 
 TELLIE = telegram.Bot(token=cfg.telegram_token)
 
-FREE_PROD_CHANNELS = [
-    cfg.telegram_chat_prod
-]
-
-PAID_PROD_CHANNELS = [
-    cfg.kirby_bot_channel,
-    cfg.telegram_chat_prod_vip,
-    cfg.channel_vip_coineo
-]
-
 TEST_CHANNELS = [
     cfg.telegram_chat_dev
 ]
+
+PROD_CHANNELS = [cfg.telegram_chat_prod]
 
 
 def delivery_boy(text, channels):
@@ -40,28 +32,8 @@ def build_info_template():
     text += "- Report bugs! -> goo.gl/forms/CPOCGE86TwDrf1sr1\n"
     text += "- Request features! -> goo.gl/forms/bdHcPk5TsRH5roZL2\n\n"
     text += crystal_ball_symbol + \
-        " Write @azurikai at any time. " + \
+        " Write @AustinWitherow at any time. " + \
         crystal_ball_symbol
-
-    return text
-
-
-def build_ad_template():
-    rocket_symbol = emoji.emojize(":rocket:")
-    chart_symbol = emoji.emojize(":chart_increasing:")
-    lightning_symbol = emoji.emojize(":cloud_with_lightning:")
-
-    text = emoji.emojize(chart_symbol + " *STABLE INVESTMENTS* \n")
-    text += emoji.emojize(" - " + lightning_symbol +
-                          " [$BUZZ](http://buzzcoin.info)! -> Innovations in Smart Energy Contracts, Save the Bees Project!\n\n")
-
-    text += rocket_symbol + rocket_symbol + \
-        rocket_symbol + rocket_symbol + "\n"
-    text += "You are currently using the *FREE* version of MOONBOT.\n"
-    text += "This version posts only Twitter scoring every 6 hours.\n"
-    text += "Want access to hourly posting and future roadmap items? \n\n"
-    text += "[Sign up TODAY for VIP Access!](http://bit.ly/2D4y9XC)\n\n"
-    text += rocket_symbol + rocket_symbol + rocket_symbol + rocket_symbol
 
     return text
 
@@ -83,7 +55,7 @@ def build_cmc_new_coins_template(new_coins):
         delivery_boy(text, TEST_CHANNELS)
         return
 
-    delivery_boy(text, PAID_PROD_CHANNELS)
+    delivery_boy(text, PROD_CHANNELS)
 
 
 def generate_and_post_message(hourly, daily):
@@ -122,17 +94,11 @@ def send_message(text, category="data"):
 
     if cfg.env == "prod":
         if category == "data":
-            if int(now.tm_hour) % 6 == 0:
-                delivery_boy(text, FREE_PROD_CHANNELS)
 
-            delivery_boy(text, PAID_PROD_CHANNELS)
-
-        if category == "ad":
-            delivery_boy(text, FREE_PROD_CHANNELS)
+            delivery_boy(text, PROD_CHANNELS)
 
         if category == "info":
-            delivery_boy(text, FREE_PROD_CHANNELS)
-            delivery_boy(text, PAID_PROD_CHANNELS)
+            delivery_boy(text, PROD_CHANNELS)
 
 
 def build_rating_template(scores, title):

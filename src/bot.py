@@ -105,6 +105,7 @@ def build_rating_template(scores, title):
     """ build_rating_template builds and returns a text message for twitter based coin score ratings """
 
     message = emoji.emojize("*:bird:" + title + ":bird: *\n")
+
     for market in scores:
         symbol = market["symbol"]
 
@@ -112,25 +113,27 @@ def build_rating_template(scores, title):
         # - ensure length is minus one to account for negative symbol
         # - if negative use skulls.
         birds = len(str(market["score"]))
-        lit_meter = ""
+        lit_meter = "- - "
 
         for _ in range(birds):
             lit_meter += emoji.emojize(":bird:")
 
         message += "- [$" + symbol + \
             "](https://twitter.com/search?f=tweets&vertical=default&q=%24" + \
-            symbol + ") Score => " + lit_meter
+            symbol + ")("
 
         if "name" in market:
-            message += " ::: [Research](https://coinmarketcap.com/currencies/" + \
+            message += "[Research](https://coinmarketcap.com/currencies/" + \
                 market["name"] + ")"
 
-        message += " | [Analyze](https://www.tradingview.com/chart/?symbol=BITTREX:" + \
+        message += ", [Analyze](https://www.tradingview.com/chart/?symbol=BITTREX:" + \
             market["symbol"] + "BTC)"
 
-        message += " | [Trade](https://bittrex.com/Market/Index?MarketName=BTC-" + \
-            market["symbol"] + ")"
+        message += ", [Trade](https://bittrex.com/Market/Index?MarketName=BTC-" + \
+            market["symbol"] + "))"
 
+        message += ".\n"
+        message += lit_meter
         message += "\n"
 
     return message

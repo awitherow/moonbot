@@ -73,6 +73,8 @@ def generate_and_post_message(hourly, daily):
         daily_text = build_rating_template(daily, "Daily Twitter Hype")
         text += daily_text + "\n"
 
+    text += "\nAnalyse and Trade like a PRO with [TradingView Pro](https://tradingview.go2cloud.org/aff_c?offer_id=2&aff_id=5238) today!"
+
     send_message(text=text)
 
 
